@@ -25,7 +25,7 @@
 
             $id = isset($_GET['id']) ? $_GET['id'] : '';
             $name = isset($_GET['name']) ? $_GET['name'] : '';
-            //*************************cách 1******************************
+            //*************************filter cách 1******************************
             $sql = "SELECT * FROM category_product"; //$str1 . $str2
             $flag_where = false;
             if($id != '') {

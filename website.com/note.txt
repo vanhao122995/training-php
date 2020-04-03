@@ -3,3 +3,9 @@
  -Model
  -View
  -Controller
+
+ //đường dẫn tuyệt đối
+    ROO_PATH
+//đường dẫn tương đối
+    './../libs/database.php' //không nên sài
+//đường dẫn cơ bản base_url

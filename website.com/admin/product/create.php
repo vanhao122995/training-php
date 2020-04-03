@@ -9,9 +9,6 @@
 <body>
 <?php
     session_start();
-    // if(!isset($_SESSION["is_login"]) || $_SESSION["is_login"] !== true){
-    //     echo 'Không đc phép vô đây';die();
-    // }
     //Kết nối SQL
     require_once ('./../libs/database.php');
     $connect = connect_db();
@@ -68,7 +65,7 @@ if(isset($_POST['name'])) {
         }
 
         $name_image = time() . '-' . $_FILES["image"]["name"];
-        $path_image = './../uploads/' . $name_image;
+        $path_image = ROOT_PATH . '/uploads/' . $name_image;
         $type_file = pathinfo($_FILES["image"]["name"],PATHINFO_EXTENSION);
         $type_fileAllow = array('png', 'jpg', 'jpeg', 'gif','jfif');
         if (!in_array(strtolower($type_file), $type_fileAllow)) {

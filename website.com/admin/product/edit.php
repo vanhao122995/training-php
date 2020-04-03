@@ -9,9 +9,6 @@
 <body>
 <?php
     session_start();
-    if(!isset($_SESSION["is_login"]) || $_SESSION["is_login"] !== true){
-        echo 'Không đc phép vô đây';die();
-    }
     //Kết nối SQL
     require_once ('./../libs/database.php');
     $connect = connect_db();

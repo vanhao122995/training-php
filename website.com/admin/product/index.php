@@ -7,24 +7,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>List</title>
-    <link rel="stylesheet" href="http://localhost/training-php/website.com/public/styles.css">
+    <link rel="stylesheet" href="<?= $base_url ?>/public/styles.css">
 </head>
-<body>
-    <?php
-        session_start();
-        //$key = '23465'
-        // Check if the user is logged in, if not then redirect to login page
-        // if(!isset($_SESSION["is_login"]) || $_SESSION["is_login"] !== true){
-        //     header('Location: http://localhost/training-php/website.com/login.php');
-        // }
-    ?>
-    
-    <h3>Click here to <a href = "http://localhost/training-php/website.com/logout.php">logout</a></h2> 
+<body>   
+    <h3>Click here to <a href = "<?= $base_url ?>/admin/logout.php">logout</a></h2> 
     
     <?php
     //Kết nối SQL
-        require_once ('./../libs/database.php');
-        $connect = connect_db();
+    require_once ('./../libs/database.php');
+    $connect = connect_db();
 
         
 
@@ -134,7 +125,7 @@
     <!-- Form xóa nhiều id -->
     <form action="" method="POST">
         <div>
-            <a href="http://localhost/training-php/website.com/product/create.php">Thêm mới</a>
+            <a href="<?= $base_url ?>/product/create.php">Thêm mới</a>
         </div>
             <?php 
                     if(isset($_SESSION['message'])) { 
@@ -179,7 +170,7 @@
                 <td><?php echo $row ['id'];?></td>
                 <td><?php echo $row ['category_id']; ?></td>
                 <td>
-                    <p><img src="http://localhost/training-php/website.com/uploads/<?= $row['image'] ?>" width="50" height="50"></p>
+                    <p><img src="<?= $base_url ?>/uploads/<?= $row['image'] ?>" width="50" height="50"></p>
                     <?php echo $row['name']; ?>
                 </td>
                 <td><?php echo $row ['status']; ?></td>
@@ -189,8 +180,8 @@
                 <td><?php echo $row ['price']; ?></td>
                 <td><?php echo $row ['created']; ?></td>
                 <td>
-                    <button><a href = 'http://localhost/training-php/website.com/product/delete.php?id=<?php echo $row ['id'];?>'> Xoá</a></button>
-                    <button><a href = 'http://localhost/training-php/website.com/product/edit.php?id=<?php echo $row ['id'];?>'> Sửa</a></button>
+                    <button><a href = '<?= $base_url ?>/admin/index.php?controller=product&action=delete&id=<?php echo $row ['id'];?>'> Xoá</a></button>
+                    <button><a href = '<?= $base_url ?>/admin/index.php?controller=product&action=edit&id=<?php echo $row ['id'];?>'> Sửa</a></button>
                 </td>
             </tr>
             <?php } ?>

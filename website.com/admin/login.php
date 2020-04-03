@@ -1,41 +1,44 @@
 <?php
-session_start();
-// Check if the user is logged in, if not then redirect to login page
-if(isset($_SESSION["is_login"]) && $_SESSION["is_login"] == true){
-    header('Location: http://localhost/training-php/website.com/product');
-}
-$_SESSION['message'] = "";
-$message="";
-   
-if(isset($_POST['username']) && isset($_POST['password'])){
-    //Kết nối SQL
-    require_once ('./libs/database.php');
-    $connect = connect_db();
-      //Validate dữ liệu trên server side
-      $username = mysqli_real_escape_string($connect,$_POST['username']);//trim
-      $password = mysqli_real_escape_string($connect,$_POST['password']);//
-      
-      $sql = "SELECT * FROM user WHERE username = '$username' and password = '$password'";
-      $result = mysqli_query($connect,$sql);
-      //$row = mysqli_fetch_assoc($result);
-      
-      // If result matched $username and $password, table row must be 1 row
-      $count = mysqli_num_rows($result);
-      if($count == 1) {
-         $_SESSION["is_login"] = true;
-         $_SESSION["username"] = $username;
-         header("location: http://localhost/training-php/website.com/product/");
-      }else {         
-        $message= "Name or Password is invalid !!";
-      }
-}
+
+    require_once "./../define.php";
+
+    session_start();
+    // Check if the user is logged in, if not then redirect to login page
+    if(isset($_SESSION["is_login"]) && $_SESSION["is_login"] == true){
+        header("Location: $base_url/admin");
+    }
+    $_SESSION['message'] = "";
+    $message="";
+    
+    if(isset($_POST['username']) && isset($_POST['password'])){
+        //Kết nối SQL
+        require_once ('./../libs/database.php');
+        $connect = connect_db();
+        //Validate dữ liệu trên server side
+        $username = mysqli_real_escape_string($connect,$_POST['username']);//trim
+        $password = mysqli_real_escape_string($connect,$_POST['password']);//
+        
+        $sql = "SELECT * FROM user WHERE username = '$username' and password = '$password'";
+        $result = mysqli_query($connect,$sql);
+        //$row = mysqli_fetch_assoc($result);
+        
+        // If result matched $username and $password, table row must be 1 row
+        $count = mysqli_num_rows($result);
+        if($count == 1) {
+            $_SESSION["is_login"] = true;
+            $_SESSION["username"] = $username;
+            header("Location: $base_url/admin/");
+        }else {         
+            $message= "Name or Password is invalid !!";
+        }
+    }
 
 ?>
 <html>
 
    <head>
       <title>Login Page</title>
-      <link rel="stylesheet" href="http://localhost/training-php/website.com/public/login.css">
+      <link rel="stylesheet" href="<?= $base_url ?>/public/login.css">
       <style>
       </style>  
    </head>
