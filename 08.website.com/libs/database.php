@@ -13,3 +13,4 @@ function connect_db() {
     }
     return $connect;
 }
+
