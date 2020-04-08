@@ -1,0 +1,2 @@
+//method update -> id
+//delete -> single, muilti ->id

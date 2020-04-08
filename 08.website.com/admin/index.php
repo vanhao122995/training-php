@@ -1,7 +1,8 @@
 <?php
    session_start();
    require_once "./../define.php";
-
+   require_once "./../libs/DB.php";
+   
    if(!isset($_SESSION["is_login"]) || $_SESSION["is_login"] !== true){
       header("Location: $base_url/admin/login.php");
    }
