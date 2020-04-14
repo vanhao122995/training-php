@@ -102,4 +102,7 @@ class DB {
         return $str_where;
     }
 
+    //update single - muilti
+    //insert 
+
 }
