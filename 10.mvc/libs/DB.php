@@ -18,7 +18,10 @@ class DB {
         }
 
     }
-
+    //[
+    //      ['select'] => ['id', 'name' ...]
+    //      ['where'] => [ ['id', '=', 122], ...]
+    // ]
     public function getAll($params = []) {
         $data = null;
         $sql = '';
@@ -84,9 +87,10 @@ class DB {
     public function reateSqlWhere($where = []) {
         $str_where = '';
         if(isset($where) && !empty($where)) {
+            $str_where = 'WHERE ';
             foreach($where as $key => $row) {
                 if(!empty($row)) {
-                    $str_where .= $row[0] . $row[1] . (is_numeric($row[2]) ? $row[2] : '\'' . $row[2] . '\'');                  
+                    $str_where .= $row[0] . ' ' . $row[1] . ' ' . (is_numeric($row[2]) ? $row[2] : '\'' . $row[2] . '\'');                  
                 }
                 //1 => 0 key       => 0 => count
                 //2 => 0 1   key   => 1
@@ -98,6 +102,13 @@ class DB {
             }
         }
         return $str_where;
+    }
+
+    public function execueQuery($sql = '', $option = null) {
+       if($sql) {
+            return mysqli_query($this->conn, $sql);
+       }
+        return false;
     }
 
     //update single - muilti
