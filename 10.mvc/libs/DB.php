@@ -21,6 +21,7 @@ class DB {
     //[
     //      ['select'] => ['id', 'name' ...]
     //      ['where'] => [ ['id', '=', 122], ...]
+    //      ['limit'] => [offset, item in a page]
     // ]
     public function getAll($params = []) {
         $data = null;
@@ -44,7 +45,13 @@ class DB {
             $param_limit = $params['limit'];
             $str_limit = 'LIMIT ' . $param_limit[0] . ',' . $param_limit[1];//LIMIT 0, 10
         }
-        //SELECT *(id, name, status) WHERE id = 10 AND name = 'werty' LIMIT 0, n
+        //SELECT *(id, name, status) WHERE id = 10 AND name = 'werty' LIMIT 0, 10
+        //page 1 LIMIT 0, 10    => offset = (page -1)*itemperpage = 0, offset 
+        //page 2 LIMIT 10, 10   10
+        //page 3 LIMIT 20, 10
+        //page 4 LIMIT 30, 10
+        //50 10 =>  50/10 = 5 => 5 trang
+        //55 10 =>  55/10 = 5.5 => 6 trang
         $sql = "SELECT $str_select FROM $this->table $str_where $str_limit";
         $result = mysqli_query ($this->conn, $sql);
         if($result) {
@@ -53,6 +60,21 @@ class DB {
             }
         }
         return $data;
+    }
+    public function getOne($params = []) {
+      
+        $data = null;
+        $sql = '';
+        $str_where = '';
+
+        //xử lý điều kiện where
+        if(isset($params) && !empty($params)) {
+            $str_where = $this->reateSqlWhere($params);
+            //SELECT *(id, name, status) WHERE id = 10 AND name = 'werty' LIMIT 0, n
+            $sql = "SELECT * FROM $this->table $str_where";
+            $result = mysqli_query ($this->conn, $sql);
+            return mysqli_fetch_object($result);
+        }
     }
     //DELETE FROM product WHERE id = 10; key = value 
     //DLETE FROM product WHERE key IN ('', '2', 3,.....n)
@@ -80,7 +102,8 @@ class DB {
          if(isset($where) && !empty($where)) {
             $str_where = $this->reateSqlWhere($where);
             $sql = "SELECT * FROM $this->table $str_where";
-            return mysqli_query ($this->conn, $sql);
+            $result = mysqli_query($this->conn, $sql);
+            return mysqli_num_rows($result);
         }
     }
 
@@ -129,7 +152,32 @@ class DB {
             }
             $str_col =  substr($str_col , 1);
             $str_val =  substr($str_val , 1);
-            echo $sql = "INSERT INTO $this->table ($str_col) VALUES ($str_val)";
+            $sql = "INSERT INTO $this->table ($str_col) VALUES ($str_val)";
+            return $this->execueQuery($sql);
+        }
+     }
+
+     public function edit($id, $data = []) {
+        // UPDATE Customers
+        // SET ContactName = 'Alfred Schmidt', City= 'Frankfurt'
+        // WHERE CustomerID = 1;
+        // $data = [
+        //     'name' => $_POST['name'],
+        //     'price' => $_POST['price'],
+        //     'detail' => $_POST['detail'],
+        //     'decription' => $_POST['decription'],
+        // ];
+        if(count($data) > 0) {
+            $str_val = '';
+            foreach($data as $key => $row) {
+                if(!is_numeric($row)) {
+                    $str_val .= ',' . $key . '=' . '\'' . $row . '\' ';  
+                }else {
+                    $str_val .= ',' . $key . '='  . $row . ' ' ;  
+                }                        
+            }
+            $str_val =  substr($str_val , 1);
+            $sql = "UPDATE $this->table SET $str_val  WHERE id=$id";
             return $this->execueQuery($sql);
         }
      }

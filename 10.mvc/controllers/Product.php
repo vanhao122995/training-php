@@ -22,11 +22,22 @@ class Product extends Controller {
             $param['where'][] = ['name', 'LIKE', $name];
         }
 
+        //phân trang
+        $totalRows = count( $this->db_product->getAll($param));
+        $currentPage = isset($_GET['page']) ? $_GET['page'] : 1; 
+        $itemPerPage = 10; //số item muốn hiển thị trên 1 trang
+        $offset = $itemPerPage*($currentPage -1);
+        $param['limit'] = [$offset, $itemPerPage];
+
+        $this->view->currentPage = $currentPage;
+        $this->view->totalRows = $totalRows;
+        $this->view->itemPerPage = $itemPerPage;
         $this->view->id = $id;
         $this->view->name = $name;
         $this->view->data = $this->db_product->getAll($param);
 
-        $this->view->load('product/index');
+        $this->view->template = 'product/index';
+        $this->view->load('layout');
     }
 
     public function changeStatus() {
@@ -71,24 +82,84 @@ class Product extends Controller {
                 //insert
                 $data = [
                     'name' => $_POST['name'],
+                    'category_id' => $_POST['category_id'],
                     'price' => $_POST['price'],
                     'detail' => $_POST['detail'],
                     'decription' => $_POST['decription'],
+                    'status' => $_POST['status'],
+                    'created' => time()
                 ];
                 $this->db_product->insert($data);
                 $url = BASE_PATH . 'index.php?controller=product&action=index';
                 header('location: ' . $url);
             }
         }
-       
+        
+        $db = $this->db('Category_product_Model');
+        //danh sách cate
+        $this->view->list_category_product = $db->getAll();
         $this->view->errors = $errors;
-        $this->view->load('product/add');
+        $this->view->template = 'product/add';
+        $this->view->load('layout');
     }
 
     //viết lại add
     //viết edit
     //nhúng 1 thư viện hình ảnh xử lý update
     //update, resize, crop 500x500 -> 200x200 -> 800x600
+    public function edit() {
+        $errors = '';
+        $url = BASE_PATH . 'index.php?controller=product&action=index';
+        $id = isset($_GET['id']) ?  $_GET['id'] : 0;
 
+        $isProduct = $this->db_product->isExistRecord([['id', '=', $id]]);
+        if($isProduct <= 0) {         
+            header('location: ' . $url);
+        }
+
+        if(isset($_POST['submit'])) {
+            $validator = new Validator;
+            $validation = $validator->make($_POST, [
+                'name'                  => 'required|min:5',
+                'price'                 => 'numeric',
+            ]);
+
+            $validation->setMessages([
+                'name:required' => 'Tên sản phẩm không được rỗng',
+                'numeric' => ':attribute phải là số',
+            ]);
+    
+            $validation->validate();
+    
+            if ($validation->fails()) {
+                $errors = $validation->errors();
+                $errors = $errors->firstOfAll();
+            } else {
+                //image
+
+                //edit
+                $data = [
+                    'name' => $_POST['name'],
+                    'category_id' => $_POST['category_id'],
+                    'price' => $_POST['price'],
+                    'detail' => $_POST['detail'],
+                    'decription' => $_POST['decription'],
+                    'status' => $_POST['status'],
+                    'created' => time()
+                ];
+                $this->db_product->edit($id, $data);
+                $url = BASE_PATH . 'index.php?controller=product&action=index';
+                header('location: ' . $url);
+            }
+        }
+       
+        $db = $this->db('Category_product_Model');
+        //danh sách cate
+        $this->view->list_category_product = $db->getAll();
+        $this->view->errors = $errors;
+        $this->view->item = $this->db_product->getOne([['id', '=', $id]]);
+        $this->view->template = 'product/edit';
+        $this->view->load('layout');
+    }
 
 }

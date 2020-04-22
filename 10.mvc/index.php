@@ -1,5 +1,6 @@
 <?php
     //error_reporting(0);
+    date_default_timezone_set("Asia/Ho_Chi_Minh");
     require_once('./define.php');
     require_once('./libs/Controller.php');
     require_once('./libs/View.php');
