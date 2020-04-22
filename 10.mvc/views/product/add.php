@@ -264,69 +264,96 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">Danh sách sản phẩm</h1>
-                    <form action="http://localhost/my-git/training-php/10.mvc/index.php?controller=product&action=index" method="POST">
-                        <div class="row">
-                                <input type="hidden" name="controller" value="product">
-                                <input type="hidden" name="action" value="index">
-                                <div class="col-sm-1">
-                                    <div class="input-group input-group-sm mb-3">
-                                        <input type="text" name="id" value="<?= $this->id ?>" class="form-control" placeholder="id">
-                                    </div> 
-                                </div>
-                                <div class="col-sm-3">
-                                    <div class="input-group input-group-sm mb-3">
-                                        <input type="text" name="name" value="<?= $this->name ?>" class="form-control" placeholder="Nhập tên">
-                                    </div> 
-                                </div>
-                                <div class="col-sm-2">
-                                    <button type="submit" name="search" class="btn btn-primary">Tìm kiếm</button>
-                                </div> 
-                                <div class="col-sm-2">
-                                    <a href="<?= BASE_PATH . 'index.php?controller=product&action=add' ?>" class="btn btn-primary">Thêm mới</a>
-                                </div> 
-                                            
-                        </div>
-                    </form>  
+                    <h1 class="h3 mb-2 text-gray-800">Thêm mới sản phẩm</h1>
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">STT</th>
-                                            <th scope="col">Tên sản phẩm</th>
-                                            <th scope="col">Giá</th>
-                                            <th scope="col">Trạng thái</th>
-                                            <th scope="col">Ngày tạo</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php foreach($this->data as $key => $obj) { ?>
-                                        <tr>
-                                            <th scope="row"><?= $key + 1 ?></th>
-                                            <td><?= $obj->name ?></td>
-                                            <td><?= $obj->price ?></td>
-                                            <td>
-                                                <?php 
-                                                    $url_status = BASE_PATH . 'index.php?controller=product&action=changeStatus&status=' . $obj->status . '&id=' . $obj->id;
-                                                ?>
-                                                <?php if($obj->status == 1) { ?>
-                                                    <a href="<?= $url_status ?>" class="btn btn-warning">Active</a>
-                                                <?php } else {?>
-                                                    <a href="<?= $url_status ?>" class="btn btn-info">Inactive</a>
-                                                <?php } ?>
-                                            </td>
-                                            <td><?= date("H:i:s d-m-Y", $obj->created) ?></td>
-                                            <td>
-                                                <a href="<?= $url_status ?>" class="btn btn-info">Delete</a>
-                                            </td>
-                                        </tr>
-                                        <?php } ?>
-                                    </tbody>
-                                </table>
+                        <?php
+                            if($this->errors) { 
+                        ?>
+                            <div class="alert alert-danger">
+                                <ul>
+                                    <?php
+                                        foreach($this->errors as $vl) {
+                                            echo '<li>'.$vl.'</li>';
+                                        }
+                                    ?>
+                                </ul>
                             </div>
+                        <?php
+                            }
+                        ?>
+                        <form action="<?= BASE_PATH . 'index.php?controller=product&action=add' ?>" method="POST">
+                            <div class="card-body">
+                                <div class="row">     
+                                    <div class="col-sm-2">
+                                        <label>Chọn trạng thái</label>
+                                    </div>                          
+                                    <div class="col-sm-10">
+                                        <div class="input-group input-group-sm mb-3">
+                                            <select name="status">
+                                                <option value="1">Active</option>
+                                                <option value="0">Inactive</option>
+                                            </select>
+                                        </div> 
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-2">
+                                        <label>Nhập tên</label>
+                                    </div>
+                                    <div class="col-sm-10">
+                                        <div class="input-group input-group-sm mb-3">
+                                            <input type="text" name="name" class="form-control">
+                                        </div> 
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-2">
+                                        <label>Nhập giá</label>
+                                    </div>
+                                    <div class="col-sm-10">
+                                        <div class="input-group input-group-sm mb-3">
+                                            <input type="text" name="price" class="form-control">
+                                        </div> 
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-2">
+                                        <label>Nhập detail</label>
+                                    </div>
+                                    <div class="col-sm-10">
+                                        <div class="input-group input-group-sm mb-3">
+                                            <textarea name="detail" class="form-control" rows="5" id="comment"></textarea>
+                                        </div> 
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-2">
+                                        <label>Nhập decription</label>
+                                    </div>
+                                    <div class="col-sm-10">
+                                        <div class="input-group input-group-sm mb-3">
+                                            <textarea name="decription" class="form-control" rows="5" id="comment"></textarea>
+                                        </div> 
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-2">
+                                        <label>Chọn hình</label>
+                                    </div>
+                                    <div class="col-sm-10">
+                                        <div class="">
+                                            <input type="file" name="image">
+                                        </div> 
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <button type="submit" name="submit" class="btn btn-primary">Lưu</button>
+                                        <a href="<?= BASE_PATH . 'index.php?controller=product&action=index' ?>" class="btn btn-primary">Hủy bỏ</a>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
                     </div>
 

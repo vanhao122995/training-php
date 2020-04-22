@@ -111,7 +111,29 @@ class DB {
         return false;
     }
 
-    //update single - muilti
-    //insert 
+    public function insert($data = []) {
+        // INSERT INTO table_name ('column1', column2, column3, ...)
+        // VALUES (value1, value2, value3, ...);
+        // $data = [
+        //     'name' => $_POST['name'],
+        //     'price' => $_POST['price'],
+        //     'detail' => $_POST['detail'],
+        //     'decription' => $_POST['decription'],
+        // ];
+        if(count($data) > 0) {
+            $str_col = '';
+            $str_val = '';
+            foreach($data as $key => $row) {
+                $str_col .= ',' .$key;
+                $str_val .= ',' . '\'' . $row . '\'';             
+            }
+            $str_col =  substr($str_col , 1);
+            $str_val =  substr($str_val , 1);
+            echo $sql = "INSERT INTO $this->table ($str_col) VALUES ($str_val)";
+            return $this->execueQuery($sql);
+        }
+     }
+
+
 
 }

@@ -1,4 +1,6 @@
 <?php
+use Rakit\Validation\Validator;
+
 class Product extends Controller {
     public $db_product = null;
     public function __construct() {
@@ -34,7 +36,7 @@ class Product extends Controller {
 
         if($id > 0 && $status != '') {
             $status = $status == 1 ? 0 : 1;
-            echo $sql = "UPDATE product SET status = $status WHERE id = $id";
+            $sql = "UPDATE product SET status = $status WHERE id = $id";
             if($this->db_product->execueQuery($sql)) {
                 $url = BASE_PATH . 'index.php?controller=product&action=index';
                 header('location: ' . $url);
@@ -42,9 +44,51 @@ class Product extends Controller {
         }
     }
 
-    //format price 10000 -> 10.000 VND, 1.000.000 VND
-    //Thêm 1 filter status -> select 
-    //delete singe and muilti
-    //
+    public function add() {
+        $errors = '';
+
+        if(isset($_POST['submit'])) {
+            $validator = new Validator;
+            $validation = $validator->make($_POST, [
+                'name'                  => 'required|min:5',
+                'price'                 => 'required|numeric',
+            ]);
+
+            $validation->setMessages([
+                'name:required' => 'Tên sản phẩm không được rỗng',
+                'price:required' => 'Giá sản phẩm không được rỗng',
+                'numeric' => ':attribute phải là số',
+            ]);
+    
+            $validation->validate();
+    
+            if ($validation->fails()) {
+                $errors = $validation->errors();
+                $errors = $errors->firstOfAll();
+            } else {
+                //image
+
+                //insert
+                $data = [
+                    'name' => $_POST['name'],
+                    'price' => $_POST['price'],
+                    'detail' => $_POST['detail'],
+                    'decription' => $_POST['decription'],
+                ];
+                $this->db_product->insert($data);
+                $url = BASE_PATH . 'index.php?controller=product&action=index';
+                header('location: ' . $url);
+            }
+        }
+       
+        $this->view->errors = $errors;
+        $this->view->load('product/add');
+    }
+
+    //viết lại add
+    //viết edit
+    //nhúng 1 thư viện hình ảnh xử lý update
+    //update, resize, crop 500x500 -> 200x200 -> 800x600
+
 
 }
