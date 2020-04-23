@@ -17,9 +17,8 @@ class Product extends Controller {
             $param['where'][] = ['id', '=', $id];
             
         }
-        if($name) {
-            $name = '%' . $name . '%';
-            $param['where'][] = ['name', 'LIKE', $name];
+        if($name) {       
+            $param['where'][] = ['name', 'LIKE', '%' . $name . '%'];
         }
 
         //phân trang
@@ -32,10 +31,9 @@ class Product extends Controller {
         $this->view->currentPage = $currentPage;
         $this->view->totalRows = $totalRows;
         $this->view->itemPerPage = $itemPerPage;
-        $this->view->id = $id;
+        $this->view->id = $id;       
         $this->view->name = $name;
         $this->view->data = $this->db_product->getAll($param);
-
         $this->view->template = 'product/index';
         $this->view->load('layout');
     }
@@ -45,7 +43,7 @@ class Product extends Controller {
         $id = isset($_GET['id']) ? $_GET['id'] : '';
         $status = isset($_GET['status']) ? $_GET['status'] : '';
 
-        if($id > 0 && $status != '') {
+        if($id > 0) {
             $status = $status == 1 ? 0 : 1;
             $sql = "UPDATE product SET status = $status WHERE id = $id";
             if($this->db_product->execueQuery($sql)) {
@@ -160,6 +158,20 @@ class Product extends Controller {
         $this->view->item = $this->db_product->getOne([['id', '=', $id]]);
         $this->view->template = 'product/edit';
         $this->view->load('layout');
+    }
+
+    public function delete() {
+
+        $id = isset($_GET['id']) ? $_GET['id'] : '';
+
+        if($id > 0) {
+            $status = $status == 1 ? 0 : 1;
+            $sql = "DELETE FROM product WHERE id = $id";
+            if($this->db_product->execueQuery($sql)) {
+                $url = BASE_PATH . 'index.php?controller=product&action=index';
+                header('location: ' . $url);
+            }
+        }
     }
 
 }

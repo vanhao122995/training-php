@@ -2,7 +2,7 @@
 <div class="container-fluid">
     <!-- Page Heading -->
     <h1 class="h3 mb-2 text-gray-800">Danh sách sản phẩm</h1>
-    <form action="http://localhost/my-git/training-php/10.mvc/index.php?controller=category_product&action=index" method="GET">
+    <form action="<?= BASE_PATH . 'index.php?controller=category_product&action=index' ?>" method="GET">
         <div class="row">
                 <input type="hidden" name="controller" value="category_product">
                 <input type="hidden" name="action" value="index">
@@ -47,6 +47,7 @@
                                 <?php 
                                     $url_status = BASE_PATH . 'index.php?controller=category_product&action=changeStatus&status=' . $obj->status . '&id=' . $obj->id;
                                     $url_edit = BASE_PATH . 'index.php?controller=category_product&action=edit&id=' . $obj->id;
+                                    $url_delete = BASE_PATH . 'index.php?controller=category_product&action=delete&id=' . $obj->id;
                                 ?>
                                 <?php if($obj->status == 1) { ?>
                                     <a href="<?= $url_status ?>" class="btn btn-warning">Active</a>
@@ -56,7 +57,7 @@
                             </td>
                             <td><?= date("H:i:s d-m-Y", $obj->created) ?></td>
                             <td>
-                                <a href="<?= $url_status ?>" class="btn btn-info">Delete</a>
+                                <a href="<?= $url_delete ?>" class="btn btn-info">Delete</a>
                                 <a href="<?= $url_edit ?>" class="btn btn-info">Edit</a>
                             </td>
                         </tr>

@@ -134,12 +134,8 @@ class Category_product extends Controller {
                 //edit
                 $data = [
                     'name' => $_POST['name'],
-                    'category_id' => $_POST['category_id'],
-                    'price' => $_POST['price'],
                     'detail' => $_POST['detail'],
-                    'decription' => $_POST['decription'],
                     'status' => $_POST['status'],
-                    'created' => time()
                 ];
                 $this->db_category_product->edit($id, $data);
                 $url = BASE_PATH . 'index.php?controller=category_product&action=index';
@@ -158,5 +154,21 @@ class Category_product extends Controller {
 
     //hoàn thành hết tát cả chức năng
     //cắt layout
+    public function delete() {
+
+        $id = isset($_GET['id']) ? $_GET['id'] : '';
+        if($id > 0) {
+            $this->product = $this->db('Product_Model');
+            $sql = "DELETE FROM product WHERE category_id = $id";
+            //delete product
+            if($this->product->execueQuery($sql)) {
+                $sql = "DELETE FROM category_product WHERE id = $id";
+                if($this->db_category_product->execueQuery($sql)) {
+                    $url = BASE_PATH . 'index.php?controller=category_product&action=index';
+                    header('location: ' . $url);
+                }
+            }
+        }
+    }
 
 }

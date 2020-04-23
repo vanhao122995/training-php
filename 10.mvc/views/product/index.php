@@ -3,7 +3,7 @@
 
     <!-- Page Heading -->
     <h1 class="h3 mb-2 text-gray-800">Danh sách sản phẩm</h1>
-    <form action="http://localhost/my-git/training-php/10.mvc/index.php?controller=product&action=index" method="POST">
+    <form action="<?= BASE_PATH . 'index.php?controller=category_product&action=index' ?>" method="GET">
         <div class="row">
                 <input type="hidden" name="controller" value="product">
                 <input type="hidden" name="action" value="index">
@@ -45,21 +45,18 @@
                         <tr>
                             <th scope="row"><?= $key + 1 ?></th>
                             <td><?= $obj->name ?></td>
-                            <td><?= $obj->price ?></td>
+                            <td><?= Helper::formatNumber($obj->price) ?></td>
                             <td>
                                 <?php 
                                     $url_status = BASE_PATH . 'index.php?controller=product&action=changeStatus&status=' . $obj->status . '&id=' . $obj->id;
                                     $url_edit = BASE_PATH . 'index.php?controller=product&action=edit&id=' . $obj->id;
+                                    $url_delete = BASE_PATH . 'index.php?controller=product&action=delete&id=' . $obj->id;
                                 ?>
-                                <?php if($obj->status == 1) { ?>
-                                    <a href="<?= $url_status ?>" class="btn btn-warning">Active</a>
-                                <?php } else {?>
-                                    <a href="<?= $url_status ?>" class="btn btn-info">Inactive</a>
-                                <?php } ?>
+                                <?= Helper::createStatus($obj->status, $url_status) ?>
                             </td>
                             <td><?= date("H:i:s d-m-Y", $obj->created) ?></td>
                             <td>
-                                <a href="<?= $url_status ?>" class="btn btn-info">Delete</a>
+                                <a href="<?= $url_delete ?>" class="btn btn-info">Delete</a>
                                 <a href="<?= $url_edit ?>" class="btn btn-info">Edit</a>
                             </td>
                         </tr>

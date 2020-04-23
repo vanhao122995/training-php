@@ -45,7 +45,7 @@
                             <select name="category_id">
                                 <?php if($this->list_category_product) { ?>
                                     <?php foreach($this->list_category_product as $row) { ?>
-                                        <option <?= $row->id == $this->item->category_id  ? 'selected' : '' ?> value="<?= $row->id ?>"><?= $row->name ?></option>
+                                        <option value="<?= $row->id ?>"><?= $row->name ?></option>
                                     <?php } ?>
                                 <?php } ?>
                             </select>
@@ -64,31 +64,11 @@
                 </div>
                 <div class="row">
                     <div class="col-sm-2">
-                        <label>Nhập giá</label>
-                    </div>
-                    <div class="col-sm-10">
-                        <div class="input-group input-group-sm mb-3">
-                            <input type="text" name="price" value="<?= $this->item->price ?>" class="form-control">
-                        </div> 
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-2">
                         <label>Nhập detail</label>
                     </div>
                     <div class="col-sm-10">
                         <div class="input-group input-group-sm mb-3">
                             <textarea name="detail" value="<?= $this->item->detail ?>" class="form-control" rows="5" id="comment"></textarea>
-                        </div> 
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-2">
-                        <label>Nhập decription</label>
-                    </div>
-                    <div class="col-sm-10">
-                        <div class="input-group input-group-sm mb-3">
-                            <textarea name="decription" value="<?= $this->item->decription ?>" class="form-control" rows="5" id="comment"></textarea>
                         </div> 
                     </div>
                 </div>

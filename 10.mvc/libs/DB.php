@@ -52,7 +52,7 @@ class DB {
         //page 4 LIMIT 30, 10
         //50 10 =>  50/10 = 5 => 5 trang
         //55 10 =>  55/10 = 5.5 => 6 trang
-        $sql = "SELECT $str_select FROM $this->table $str_where $str_limit";
+        $sql = "SELECT $str_select FROM `$this->table` $str_where $str_limit";
         $result = mysqli_query ($this->conn, $sql);
         if($result) {
             while($item = mysqli_fetch_object($result)) {
@@ -129,7 +129,18 @@ class DB {
 
     public function execueQuery($sql = '', $option = null) {
        if($sql) {
+           if($option) {
+                $data = null;
+                $result = mysqli_query ($this->conn, $sql);
+                if($result) {
+                    while($item = mysqli_fetch_object($result)) {
+                        $data[] = $item;
+                    }
+                }
+                return $data;
+           }else {
             return mysqli_query($this->conn, $sql);
+           }          
        }
         return false;
     }
