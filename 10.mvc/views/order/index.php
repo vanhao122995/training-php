@@ -3,7 +3,7 @@
 
     <!-- Page Heading -->
     <h1 class="h3 mb-2 text-gray-800">Danh sách sản phẩm</h1>
-    <form action="<?= BASE_PATH . 'index.php?controller=order&action=index' ?>" method="GET">
+    <form action="<?= BASE_PATH . 'index.php?module=admin&controller=order&action=index' ?>" method="GET">
         <div class="row">
                 <input type="hidden" name="controller" value="order">
                 <input type="hidden" name="action" value="index">
@@ -53,7 +53,7 @@
                             <td><?= $obj->deliver_date ?></td>
                             <td><?= Helper::createStatus($obj->status, '', 'order') ?></td>                           
                             <td>
-                                <a href="<?= BASE_PATH . 'index.php?controller=order&action=detail&id=' . $obj->id ?>" class="btn btn-info">Xem chi tiết</a>
+                                <a href="<?= BASE_PATH . 'index.php?module=admin&controller=order&action=detail&id=' . $obj->id ?>" class="btn btn-info">Xem chi tiết</a>
                             </td>
                         </tr>
                         <?php } ?>
@@ -65,7 +65,7 @@
                                 <?php
                                     $totalPage = ceil($this->totalRows/$this->itemPerPage);
                                     for($i = 1; $i <= $totalPage; $i++) {
-                                        $url_page = BASE_PATH . 'index.php?controller=product&action=index&page=' . $i;
+                                        $url_page = BASE_PATH . 'index.php?module=admin&controller=product&action=index&page=' . $i;
                                         $classActive = $this->currentPage == $i ? 'active' : '';
                                 ?>                                             
                                     <li class="page-item <?= $classActive ?>"><a class="page-link" href="<?= $url_page ?>"><?= $i ?></a></li>

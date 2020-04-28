@@ -2,7 +2,7 @@
 <div class="container-fluid">
     <!-- Page Heading -->
     <h1 class="h3 mb-2 text-gray-800">Danh sách sản phẩm</h1>
-    <form action="<?= BASE_PATH . 'index.php?controller=category_product&action=index' ?>" method="GET">
+    <form action="<?= BASE_PATH . 'index.php?module=admin&controller=category_product&action=index' ?>" method="GET">
         <div class="row">
                 <input type="hidden" name="controller" value="category_product">
                 <input type="hidden" name="action" value="index">
@@ -20,7 +20,7 @@
                     <button type="submit" name="search" class="btn btn-primary">Tìm kiếm</button>
                 </div> 
                 <div class="col-sm-2">
-                    <a href="<?= BASE_PATH . 'index.php?controller=category_product&action=add' ?>" class="btn btn-primary">Thêm mới</a>
+                    <a href="<?= BASE_PATH . 'index.php?module=admin&controller=category_product&action=add' ?>" class="btn btn-primary">Thêm mới</a>
                 </div> 
                             
         </div>
@@ -45,9 +45,9 @@
                             <td><?= $obj->name ?></td>
                             <td>
                                 <?php 
-                                    $url_status = BASE_PATH . 'index.php?controller=category_product&action=changeStatus&status=' . $obj->status . '&id=' . $obj->id;
-                                    $url_edit = BASE_PATH . 'index.php?controller=category_product&action=edit&id=' . $obj->id;
-                                    $url_delete = BASE_PATH . 'index.php?controller=category_product&action=delete&id=' . $obj->id;
+                                    $url_status = BASE_PATH . 'index.php?module=admin&controller=category_product&action=changeStatus&status=' . $obj->status . '&id=' . $obj->id;
+                                    $url_edit = BASE_PATH . 'index.php?module=admin&controller=category_product&action=edit&id=' . $obj->id;
+                                    $url_delete = BASE_PATH . 'index.php?module=admin&controller=category_product&action=delete&id=' . $obj->id;
                                 ?>
                                 <?php if($obj->status == 1) { ?>
                                     <a href="<?= $url_status ?>" class="btn btn-warning">Active</a>
@@ -70,7 +70,7 @@
                                 <?php
                                     $totalPage = ceil($this->totalRows/$this->itemPerPage);
                                     for($i = 1; $i <= $totalPage; $i++) {
-                                        $url_page = BASE_PATH . 'index.php?controller=category_product&action=index&page=' . $i;
+                                        $url_page = BASE_PATH . 'index.php?module=admin&controller=category_product&action=index&page=' . $i;
                                         $classActive = $this->currentPage == $i ? 'active' : '';
                                 ?>                                             
                                     <li class="page-item <?= $classActive ?>"><a class="page-link" href="<?= $url_page ?>"><?= $i ?></a></li>

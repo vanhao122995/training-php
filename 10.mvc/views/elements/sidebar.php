@@ -13,19 +13,23 @@
 
     <!-- Nav Item - Tables -->
     <li class="nav-item active">
-        <a class="nav-link" href="<?= BASE_PATH . 'index.php?controller=product&action=index' ?>">
+        <a class="nav-link" href="<?= BASE_PATH . 'index.php?module=admin&controller=product&action=index' ?>">
             <i class="fas fa-fw fa-table"></i>
             <span>Quản lý sản phẩm</span></a>
     </li>
     <li class="nav-item active">
-        <a class="nav-link" href="<?= BASE_PATH . 'index.php?controller=category_product&action=index' ?>">
+        <a class="nav-link" href="<?= BASE_PATH . 'index.php?module=admin&controller=category_product&action=index' ?>">
             <i class="fas fa-fw fa-table"></i>
             <span>Quản lý danh mục</span></a>
     </li>
     <li class="nav-item active">
-        <a class="nav-link" href="<?= BASE_PATH . 'index.php?controller=order&action=index' ?>">
+        <a class="nav-link" href="<?= BASE_PATH . 'index.php?module=admin&controller=order&action=index' ?>">
             <i class="fas fa-fw fa-table"></i>
             <span>Quản lý đơn hàng</span></a>
     </li>
-    
+    <li class="nav-item active">
+        <a class="nav-link" href="<?= BASE_PATH . 'index.php?module=admin&controller=user&action=index' ?>">
+            <i class="fas fa-fw fa-table"></i>
+            <span>Quản lý user</span></a>
+    </li>
 </ul>

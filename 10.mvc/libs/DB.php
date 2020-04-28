@@ -139,7 +139,7 @@ class DB {
                 }
                 return $data;
            }else {
-            return mysqli_query($this->conn, $sql);
+                return mysqli_query($this->conn, $sql);
            }          
        }
         return false;
@@ -191,7 +191,11 @@ class DB {
             $sql = "UPDATE $this->table SET $str_val  WHERE id=$id";
             return $this->execueQuery($sql);
         }
-     }
+    }
+
+    public function getConn() {
+        return $this->conn;
+    }
 
 
 

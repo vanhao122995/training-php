@@ -21,7 +21,7 @@
         <?php
             }
         ?>
-        <form action="<?= BASE_PATH . 'index.php?controller=category_product&action=edit&id='. $this->item->id ?>" method="POST">
+        <form action="<?= BASE_PATH . 'index.php?module=admin&controller=category_product&action=edit&id='. $this->item->id ?>" method="POST">
             <div class="card-body">
                 <div class="row">     
                     <div class="col-sm-2">
@@ -85,7 +85,7 @@
                 <div class="row">
                     <div class="col-sm-12">
                         <button type="submit" name="submit" class="btn btn-primary">Lưu</button>
-                        <a href="<?= BASE_PATH . 'index.php?controller=category_product&action=index' ?>" class="btn btn-primary">Hủy bỏ</a>
+                        <a href="<?= BASE_PATH . 'index.php?module=admin&controller=category_product&action=index' ?>" class="btn btn-primary">Hủy bỏ</a>
                     </div>
                 </div>
             </form>

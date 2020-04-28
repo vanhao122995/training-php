@@ -3,9 +3,9 @@
 
     <!-- Page Heading -->
     <h1 class="h3 mb-2 text-gray-800">Danh sách sản phẩm</h1>
-    <form action="<?= BASE_PATH . 'index.php?module=admin&controller=category_product&action=index' ?>" method="GET">
+    <form action="<?= BASE_PATH . 'index.php?module=admin&controller=user&action=index' ?>" method="GET">
         <div class="row">
-                <input type="hidden" name="controller" value="product">
+                <input type="hidden" name="controller" value="user">
                 <input type="hidden" name="action" value="index">
                 <div class="col-sm-1">
                     <div class="input-group input-group-sm mb-3">
@@ -21,7 +21,7 @@
                     <button type="submit" name="search" class="btn btn-primary">Tìm kiếm</button>
                 </div> 
                 <div class="col-sm-2">
-                    <a href="<?= BASE_PATH . 'index.php?module=admin&controller=product&action=add' ?>" class="btn btn-primary">Thêm mới</a>
+                    <a href="<?= BASE_PATH . 'index.php?module=admin&controller=user&action=add' ?>" class="btn btn-primary">Thêm mới</a>
                 </div> 
                             
         </div>
@@ -34,10 +34,11 @@
                     <thead>
                         <tr>
                             <th scope="col">STT</th>
-                            <th scope="col">Tên sản phẩm</th>
-                            <th scope="col">Giá</th>
-                            <th scope="col">Trạng thái</th>
+                            <th scope="col">Tên</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Địa chỉ</th>
                             <th scope="col">Ngày tạo</th>
+                            <th scope="col">Trạng thái</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -45,16 +46,17 @@
                         <tr>
                             <th scope="row"><?= $key + 1 ?></th>
                             <td><?= $obj->name ?></td>
-                            <td><?= Helper::formatNumber($obj->price) ?></td>
+                            <td><?= $obj->email ?></td>
+                            <td><?= $obj->address ?></td>
+                            <td><?= date("H:i:s d-m-Y", $obj->created) ?></td>
                             <td>
                                 <?php 
-                                    $url_status = BASE_PATH . 'index.php?module=admin&controller=product&action=changeStatus&status=' . $obj->status . '&id=' . $obj->id;
-                                    $url_edit = BASE_PATH . 'index.php?module=admin&controller=product&action=edit&id=' . $obj->id;
-                                    $url_delete = BASE_PATH . 'index.php?module=admin&controller=product&action=delete&id=' . $obj->id;
+                                    $url_status = BASE_PATH . 'index.php?module=admin&controller=user&action=changeStatus&status=' . $obj->status . '&id=' . $obj->id;
+                                    $url_edit = BASE_PATH . 'index.php?module=admin&controller=user&action=edit&id=' . $obj->id;
+                                    $url_delete = BASE_PATH . 'index.php?module=admin&module=admin&controller=user&action=delete&id=' . $obj->id;
                                 ?>
                                 <?= Helper::createStatus($obj->status, $url_status) ?>
-                            </td>
-                            <td><?= date("H:i:s d-m-Y", $obj->created) ?></td>
+                            </td>                            
                             <td>
                                 <a href="<?= $url_delete ?>" class="btn btn-info">Delete</a>
                                 <a href="<?= $url_edit ?>" class="btn btn-info">Edit</a>
@@ -69,7 +71,7 @@
                                 <?php
                                     $totalPage = ceil($this->totalRows/$this->itemPerPage);
                                     for($i = 1; $i <= $totalPage; $i++) {
-                                        $url_page = BASE_PATH . 'index.php?module=admin&controller=product&action=index&page=' . $i;
+                                        $url_page = BASE_PATH . 'index.php?module=admin&module=admin&controller=user&action=index&page=' . $i;
                                         $classActive = $this->currentPage == $i ? 'active' : '';
                                 ?>                                             
                                     <li class="page-item <?= $classActive ?>"><a class="page-link" href="<?= $url_page ?>"><?= $i ?></a></li>

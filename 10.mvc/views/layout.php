@@ -17,8 +17,7 @@
 
     <!-- Custom styles for this template -->
     <link href="<?= BASE_PATH ?>/public/css/sb-admin-2.min.css" rel="stylesheet">
-    <script src="<?= BASE_PATH ?>/public/ckeditor/ckeditor.js"></script>
-    <script src="<?= BASE_PATH ?>/public/ckfinder/ckfinder.js"></script>
+
 
 </head>
 
@@ -45,14 +44,6 @@
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
     </a>
-    <!-- <textarea name="editor1" id="editor1" rows="10" cols="80">
-                This is my textarea to be replaced with CKEditor.
-            </textarea>
-            <script>
-                // Replace the <textarea id="editor1"> with a CKEditor
-                // instance, using default configuration.
-                CKEDITOR.replace( 'editor1' );
-            </script> -->
     <!-- Bootstrap core JavaScript-->
     <script src="<?= BASE_PATH ?>/public/vendor/jquery/jquery.min.js"></script>
     <script src="<?= BASE_PATH ?>/public/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
