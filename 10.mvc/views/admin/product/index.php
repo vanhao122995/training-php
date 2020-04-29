@@ -34,6 +34,7 @@
                     <thead>
                         <tr>
                             <th scope="col">STT</th>
+                            <th scope="col">Danh mục</th>
                             <th scope="col">Tên sản phẩm</th>
                             <th scope="col">Giá</th>
                             <th scope="col">Trạng thái</th>
@@ -45,6 +46,7 @@
                         <tr>
                             <th scope="row"><?= $key + 1 ?></th>
                             <td><?= $obj->name ?></td>
+                            <td><?= $obj->cate ? $obj->cate->name : 'Không thuộc danh mục nào' ?></td>
                             <td><?= Helper::formatNumber($obj->price) ?></td>
                             <td>
                                 <?php 

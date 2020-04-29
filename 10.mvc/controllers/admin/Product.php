@@ -21,6 +21,13 @@ class Product extends Controller {
             $param['where'][] = ['name', 'LIKE', '%' . $name . '%'];
         }
 
+        $this->db_category_product = $this->db('Category_product_Model');
+        $data = $this->db_product->getAll($param);
+        if($data) {
+            foreach($data as $obj) {
+                $obj->cate = $this->db_category_product->getOne([['id', '=', $obj->category_id]]);              
+            }
+        }
         //phân trang
         $totalRows = count( $this->db_product->getAll($param));
         $currentPage = isset($_GET['page']) ? $_GET['page'] : 1; 
@@ -33,9 +40,9 @@ class Product extends Controller {
         $this->view->itemPerPage = $itemPerPage;
         $this->view->id = $id;       
         $this->view->name = $name;
-        $this->view->data = $this->db_product->getAll($param);
+        $this->view->data = $data;
         $this->view->template = 'product/index';
-        $this->view->load('layout');
+        $this->view->load('admin/layout');
     }
 
     public function changeStatus() {
@@ -76,6 +83,11 @@ class Product extends Controller {
                 $errors = $errors->firstOfAll();
             } else {
                 //image
+                if( $_FILES["image"]["name"]) {
+                    $name_image = time() . '-' . $_FILES["image"]["name"];
+                    $path_image = ROOT_PATH . '/uploads/' . $name_image;
+                    move_uploaded_file($_FILES["image"]["tmp_name"], $path_image);
+                }
 
                 //insert
                 $data = [
@@ -133,9 +145,6 @@ class Product extends Controller {
                 $errors = $validation->errors();
                 $errors = $errors->firstOfAll();
             } else {
-                //image
-
-                //edit
                 $data = [
                     'name' => $_POST['name'],
                     'category_id' => $_POST['category_id'],
@@ -145,6 +154,13 @@ class Product extends Controller {
                     'status' => $_POST['status'],
                     'created' => time()
                 ];
+                //image
+                if( $_FILES["image"]["name"]) {
+                    $name_image = time() . '-' . $_FILES["image"]["name"];
+                    $path_image = ROOT_PATH . '/uploads/' . $name_image;
+                    move_uploaded_file($_FILES["image"]["tmp_name"], $path_image);
+                    $data['image'] = $name_image;
+                }
                 $this->db_product->edit($id, $data);
                 $url = BASE_PATH . 'index.php?module=admin&controller=product&action=index';
                 header('location: ' . $url);

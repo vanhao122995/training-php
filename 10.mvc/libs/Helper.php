@@ -5,6 +5,9 @@ class Helper {
         if($option == null) {
             return number_format($number, 0, '',".") . ' VND';
         } 
+        if($option == 'admin') {
+            return  number_format($number, 0, '',".") . 'đ';
+        } 
     }
 
     public static function createStatus($status = 0, $url = null, $option = null) {

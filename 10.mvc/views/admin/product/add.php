@@ -1,5 +1,4 @@
 
-
 <div class="container-fluid">
 
     <!-- Page Heading -->
@@ -21,7 +20,7 @@
         <?php
             }
         ?>
-        <form action="<?= BASE_PATH . 'index.php?module=admin&controller=product&action=edit&id='. $this->item->id ?>" method="POST">
+        <form action="<?= BASE_PATH . 'index.php?module=admin&controller=product&action=add' ?>" method="POST" enctype="multipart/form-data">
             <div class="card-body">
                 <div class="row">     
                     <div class="col-sm-2">
@@ -45,7 +44,7 @@
                             <select name="category_id">
                                 <?php if($this->list_category_product) { ?>
                                     <?php foreach($this->list_category_product as $row) { ?>
-                                        <option <?= $row->id == $this->item->category_id  ? 'selected' : '' ?> value="<?= $row->id ?>"><?= $row->name ?></option>
+                                        <option value="<?= $row->id ?>"><?= $row->name ?></option>
                                     <?php } ?>
                                 <?php } ?>
                             </select>
@@ -58,7 +57,7 @@
                     </div>
                     <div class="col-sm-10">
                         <div class="input-group input-group-sm mb-3">
-                            <input type="text" name="name" value="<?= $this->item->name ?>" class="form-control">
+                            <input type="text" name="name" class="form-control">
                         </div> 
                     </div>
                 </div>
@@ -68,7 +67,7 @@
                     </div>
                     <div class="col-sm-10">
                         <div class="input-group input-group-sm mb-3">
-                            <input type="text" name="price" value="<?= $this->item->price ?>" class="form-control">
+                            <input type="text" name="price" class="form-control">
                         </div> 
                     </div>
                 </div>
@@ -78,7 +77,7 @@
                     </div>
                     <div class="col-sm-10">
                         <div class="input-group input-group-sm mb-3">
-                            <textarea name="detail" value="<?= $this->item->detail ?>" class="form-control" rows="5" id="comment"></textarea>
+                            <textarea name="detail" class="form-control" rows="5" id="comment"></textarea>
                         </div> 
                     </div>
                 </div>
@@ -88,7 +87,7 @@
                     </div>
                     <div class="col-sm-10">
                         <div class="input-group input-group-sm mb-3">
-                            <textarea name="decription" value="<?= $this->item->decription ?>" class="form-control" rows="5" id="comment"></textarea>
+                            <textarea name="decription" class="form-control" rows="5" id="comment"></textarea>
                         </div> 
                     </div>
                 </div>
@@ -113,4 +112,3 @@
     </div>
 
 </div>
-  
