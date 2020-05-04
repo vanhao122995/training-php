@@ -46,24 +46,25 @@
                         if($this->data) {
                             foreach($this->data as $key => $obj) {
                                 $image = BASE_PATH . 'uploads' . DS . $obj->image;
+                                $url_detail = BASE_PATH . 'index.php?controller=product&action=detail&id='. $obj->id;
                                 $xhtml .= '<div class="col-md-4 col-6 col-xxs-12 mb-35">
                                                 <div class="product">
                                                     <div class="image-action">
-                                                        <a class="image" href="single-product.html"><img src="'.$image.'" alt=""></a>
+                                                        <a class="image" href="'. $url_detail .'"><img src="'.$image.'" alt=""></a>
                                                         <div class="labels">
                                                             <span class="label new">New</span>
                                                             <span class="label sale">Sale</span>
                                                         </div>
                                                         <a href="#" class="wishlist-btn"><i class="icofont-heart"></i></a>
                                                         <div class="action">
-                                                            <a href="'. BASE_PATH . 'index.php?controller=product&action=detail&id='. $obj->id .'" class="action-btn action-quickview"><i class="icofont-search-1"></i></a>
+                                                            <a href="'. $url_detail .'" class="action-btn action-quickview"><i class="icofont-search-1"></i></a>
                                                             <a href="'. BASE_PATH . 'index.php?controller=cart&action=add&id='. $obj->id.'" class="action-btn action-cart"><i class="icofont-shopping-cart"></i></a>
-                                                            <a href="#" class="action-btn action-compare"><i class="icofont-refresh"></i></a>
+                                                            <a href="'. $url_detail .'" class="action-btn action-compare"><i class="icofont-refresh"></i></a>
                                                         </div>
                                                     </div>
                                                     <div class="content">
                                                         <div class="title-price">
-                                                            <h4 class="title"><a href="single-product.html">'.$obj->name.'</a></h4>
+                                                            <h4 class="title"><a href="'. $url_detail .'">'.$obj->name.'</a></h4>
                                                             <span class="price">'.Helper::formatNumber($obj->price, 'admin').'</span>
                                                         </div>
                                                         <div class="ratting">

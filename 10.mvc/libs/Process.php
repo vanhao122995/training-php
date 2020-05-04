@@ -3,7 +3,7 @@ class Process {
 
     public function __construct() {    
         $module = isset($_GET['module']) ? $_GET['module'] : '';
-        $controller = isset($_GET['controller']) ? $_GET['controller'] : 'product';
+        $controller = isset($_GET['controller']) ? $_GET['controller'] : 'home';
         $action = isset($_GET['action']) ? $_GET['action'] : 'index';
         $params = [
             'module' => $module,

@@ -40,7 +40,7 @@ class Order extends Controller {
         $this->view->name = $name;
         $this->view->data = $data;
         $this->view->template = 'order/index';
-        $this->view->load('layout');
+        $this->view->load('admin/layout');
     }
 
     public function changeStatus() {
@@ -81,7 +81,7 @@ class Order extends Controller {
         $this->view->data = $this->db_order->execueQuery($sql, true);
 
         $this->view->template = 'order/detail';
-        $this->view->load('layout');
+        $this->view->load('admin/layout');
     }
 
 

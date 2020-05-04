@@ -55,4 +55,35 @@ class Cart extends Controller {
         header('location: ' . $url);
     }
 
+    public function delete() {
+        $id = isset($_GET['id']) ? $_GET['id'] : '';
+        if($id) {
+            if(isset($_SESSION['cart'])) {
+                foreach($_SESSION['cart'] as $key => $val) {
+                    if($val['id'] == $id) {
+                        unset($_SESSION['cart'][$key]);
+                    }
+                }
+            }
+        }
+        $url = BASE_PATH . 'index.php?controller=cart&action=index';
+        header('location: ' . $url);
+    }
+
+    public function update() {
+        if(isset($_POST['submit'])) {
+            if(isset($_SESSION['cart'])) {
+                $qtys = $_POST['qtys'];
+                $ids = $_POST['ids'];
+                foreach($_SESSION['cart'] as $key => $val) {
+                    if($val['id'] == $ids[$key] && $val['qty'] != $qtys[$key]) {
+                        $_SESSION['cart'][$key]['qty'] = $qtys[$key];
+                    }
+                }
+            }
+        }
+        $url = BASE_PATH . 'index.php?controller=cart&action=index';
+        header('location: ' . $url);
+    }
+
 }

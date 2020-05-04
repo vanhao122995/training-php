@@ -159,12 +159,15 @@ class DB {
             $str_val = '';
             foreach($data as $key => $row) {
                 $str_col .= ',' .$key;
-                $str_val .= ',' . '\'' . $row . '\'';             
+                $row = (is_numeric($row) ? $row : '\'' . $row . '\'');
+                $str_val .= ',' .  $row;             
             }
             $str_col =  substr($str_col , 1);
             $str_val =  substr($str_val , 1);
-            $sql = "INSERT INTO $this->table ($str_col) VALUES ($str_val)";
-            return $this->execueQuery($sql);
+            $sql = "INSERT INTO `$this->table` ($str_col) VALUES ($str_val)";
+            if($this->execueQuery($sql)) {
+                return mysqli_insert_id($this->conn);
+            }
         }
      }
 
