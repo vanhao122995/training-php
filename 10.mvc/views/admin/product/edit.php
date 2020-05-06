@@ -54,6 +54,16 @@
                 </div>
                 <div class="row">
                     <div class="col-sm-2">
+                        <label>Sản phẩm phổ biến</label>
+                    </div>
+                    <div class="col-sm-10">
+                        <div class="input-group input-group-sm mb-3">
+                            <input type="checkbox" name="is_popular" value="1">
+                        </div> 
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2">
                         <label>Nhập tên</label>
                     </div>
                     <div class="col-sm-10">

@@ -118,6 +118,7 @@ class Product extends Controller {
     //nhúng 1 thư viện hình ảnh xử lý update
     //update, resize, crop 500x500 -> 200x200 -> 800x600
     public function edit() {
+
         $errors = '';
         $url = BASE_PATH . 'index.php?module=admin&controller=product&action=index';
         $id = isset($_GET['id']) ?  $_GET['id'] : 0;
@@ -152,6 +153,7 @@ class Product extends Controller {
                     'detail' => $_POST['detail'],
                     'decription' => $_POST['decription'],
                     'status' => $_POST['status'],
+                    'is_popular' => $_POST['is_popular'] ? $_POST['is_popular'] : 0,
                     'created' => time()
                 ];
                 //image
@@ -173,7 +175,7 @@ class Product extends Controller {
         $this->view->errors = $errors;
         $this->view->item = $this->db_product->getOne([['id', '=', $id]]);
         $this->view->template = 'product/edit';
-        $this->view->load('layout');
+        $this->view->load('admin/layout');
     }
 
     public function delete() {

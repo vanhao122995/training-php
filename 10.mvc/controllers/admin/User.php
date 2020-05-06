@@ -35,7 +35,7 @@ class User extends Controller {
         $this->view->name = $name;
         $this->view->data = $this->db_user->getAll($param);
         $this->view->template = 'user/index';
-        $this->view->load('layout');
+        $this->view->load('admin/layout');
     }
 
     public function changeStatus() {
@@ -113,7 +113,7 @@ class User extends Controller {
         $db = $this->db('Category_user_Model');
         $this->view->errors = $errors;
         $this->view->template = 'user/add';
-        $this->view->load('layout');
+        $this->view->load('admin/layout');
     }
 
     //viết lại add
@@ -193,7 +193,7 @@ class User extends Controller {
         $this->view->errors = $errors;
         $this->view->item = $this->db_user->getOne([['id', '=', $id]]);
         $this->view->template = 'user/edit';
-        $this->view->load('layout');
+        $this->view->load('admin/layout');
     }
 
     public function delete() {
@@ -242,7 +242,7 @@ class User extends Controller {
             }
         }
         $this->view->errors = $errors;
-        $this->view->load('login');
+        $this->view->load('admin/login');
     }
 
     public function logout() {
